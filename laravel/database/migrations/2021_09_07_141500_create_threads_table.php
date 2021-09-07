@@ -16,10 +16,13 @@ class CreateThreadsTable extends Migration
         Schema::create('threads', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title');
-            $table->string('body');
+            $table->string('detail');
             $table->string('image')->nullable()->default(null)->change();
             $table->integer('star')->default(0);
             $table->timestamps();
+            //user_外部キー制約
+            $table->unsignedBigInteger('user_id')->index();
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

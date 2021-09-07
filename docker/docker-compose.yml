@@ -1,0 +1,37 @@
+version: "3"
+
+services:
+
+    nginx:
+        build:
+            context: ../
+            dockerfile: ./docker/nginx/dockerfile
+        container_name: deckReview-nginx
+        ports:
+            - 8080:80
+        volumes:
+            - ./nginx/conf.d/:/etc/nginx/conf.d/
+        depends_on:
+            - php
+  
+    php:
+        build: ./php/
+        user: ${user}
+        container_name: deckReview-php
+        volumes:
+            - ../laravel:/var/www
+        links:
+            - db
+        depends_on:
+            - db
+    
+    db:
+        build: ./mysql/
+        container_name: deckReview-db
+        environment:
+            MYSQL_DATABASE: database
+            MYSQL_USER: user
+            MYSQL_PASSWORD: password
+            MYSQL_ROOT_PASSWORD: root
+            TZ: Asia/Tokyo
+        tty: true

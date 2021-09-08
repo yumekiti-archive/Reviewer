@@ -13,7 +13,7 @@
                     <a href="/thread/{{$thread->id}}" style="text-decoration: none; color: black;">
                         <div class="card">
                             <div class="card-body">
-                                <p class="card-text">{{ $users[($thread->user_id - 1)]->name }}</p>
+                                <p class="card-text">user_name：{{ $users[($thread->user_id - 1)]->name }}</p>
                                 <h5 class="card-title">{{ $thread->title }}</h5>
                             </div>
                             <div class="card-footer text-muted text-right">

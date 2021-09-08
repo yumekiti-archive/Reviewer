@@ -10,7 +10,8 @@ use App\User;
 class ThreadController extends Controller
 {
     //
-    public function index(){
+
+    public function list(){
         $threads = Thread::all();
         $users = User::all();
 
@@ -19,6 +20,19 @@ class ThreadController extends Controller
             'users' => $users,
         ];
 
-        return view('index', $params);
+        return view('thread', $params);
     }
+
+    public function detail($id){
+        $thread = Thread::where('id', $id)->firstOrFail();
+        $user = User::where('id', $thread->user_id)->firstOrFail();
+
+        $params = [
+            'thread' => $thread,
+            'user' => $user,
+        ];
+
+        return view('detail', $params);
+    }
+
 }

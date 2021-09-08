@@ -11,11 +11,16 @@
 |
 */
 
-Route::get('/', function () {
+Route::get('/welcome', function () {
     return view('welcome');
 });
 
-Route::get('/thread', 'ThreadController@index');
+Route::get('/', function () {
+    return redirect('/thread');
+});
+
+Route::get('/thread', 'ThreadController@list');
+Route::get('/thread/{id}', 'ThreadController@detail');
 
 Auth::routes();
 

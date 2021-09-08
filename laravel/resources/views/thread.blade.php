@@ -6,7 +6,10 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">Thread list</div>
+                <div class="card-header">
+                    <div style="float: left;" class="mt-1"><span>Thread list</span></div>
+                    <div style="text-align: right;"><a href="/create"><button type="button" class="btn btn-primary btn-sm">New</button></a></div>
+                </div>
 
                 <div class="card-body">
                     @foreach ($threads as $thread)
@@ -16,7 +19,7 @@
                                 <p class="card-text">user_name：{{ $users[($thread->user_id - 1)]->name }}</p>
                                 <h5 class="card-title">{{ $thread->title }}</h5>
                             </div>
-                            <div class="card-footer text-muted text-right">
+                            <div class="small card-footer text-muted text-right">
                                 {{ $thread->updated_at }}
                             </div>
                         </div>

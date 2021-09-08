@@ -35,4 +35,8 @@ class ThreadController extends Controller
         return view('detail', $params);
     }
 
+    public function create(){
+        return view('create');
+    }
+
 }

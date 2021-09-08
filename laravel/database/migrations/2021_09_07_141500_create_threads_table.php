@@ -17,8 +17,7 @@ class CreateThreadsTable extends Migration
             $table->bigIncrements('id');
             $table->string('title');
             $table->string('detail');
-            $table->string('image')->nullable()->default(null)->change();
-            $table->integer('star')->default(0);
+            $table->string('image')->nullable()->default(null);
             $table->timestamps();
             //user_外部キー制約
             $table->unsignedBigInteger('user_id')->index();

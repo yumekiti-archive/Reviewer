@@ -35,3 +35,10 @@ services:
             MYSQL_ROOT_PASSWORD: root
             TZ: Asia/Tokyo
         tty: true
+
+    node:
+        image: node:lts-alpine
+        volumes:
+            - ../laravel:/mnt/laravel
+        working_dir: /mnt/laravel
+        tty: true

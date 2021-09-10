@@ -9,6 +9,7 @@ use App\Tag;
 class Thread extends Model
 {
     //
+    protected $fillable = ['title','detail','image', 'user_id'];
 
     /**
      *  Threadの所有するCommentを取得

@@ -20,6 +20,7 @@ Route::get('/', function () {
 });
 
 Route::get('/thread', 'ThreadController@list');
+Route::post('/thread', 'ThreadController@add');
 Route::get('/thread/{id}', 'ThreadController@detail');
 
 Route::get('/create', 'ThreadController@create');

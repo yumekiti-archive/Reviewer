@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Thread;
 use App\User;
 
+use Illuminate\Support\Facades\Auth;
+
 class ThreadController extends Controller
 {
     //
@@ -36,7 +38,31 @@ class ThreadController extends Controller
     }
 
     public function create(){
-        return view('create');
+        if(Auth::check()){
+            return view('create');
+        }else{
+            return redirect('/login');
+        }
+    }
+
+    public function add(Request $req){
+
+        $image = $req->file('image');
+
+        $title = $req->input('title');
+        $detail = $req->input('detail');
+        $id = Auth::id();
+    
+        $thread = Auth::user()->thread();
+        $thread->create([
+            'title' => $title,
+            'detail' => $detail,
+            'image' => $image,
+            'user_id' => $id,
+        ]);
+
+        return redirect('/thread');
+
     }
 
 }

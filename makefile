@@ -11,7 +11,6 @@ init:
 	$(dc) exec php /bin/bash -c "cp .env.example .env"
 	$(dc) exec php /bin/bash -c "php artisan key:generate"
 	$(dc) exec php /bin/bash -c "php artisan migrate"
-	$(dc) exec node /bin/sh -c "npm install && npm run dev"
 
 .PHONY: up
 up:
@@ -52,4 +51,8 @@ seed:
 
 .PHONY: fresh
 fresh:
+	$(dc) -f ./docker/docker-compose.yml exec php php artisan migrate:fresh
+
+.PHONY: fresh-seed
+fresh-seed:
 	$(dc) -f ./docker/docker-compose.yml exec php php artisan migrate:fresh --seed

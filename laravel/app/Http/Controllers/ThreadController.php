@@ -14,7 +14,7 @@ class ThreadController extends Controller
     //
 
     public function list(){
-        $threads = Thread::all();
+        $threads = Thread::all()->reverse();
         $users = User::all();
 
         $params = [
@@ -46,11 +46,19 @@ class ThreadController extends Controller
     }
 
     public function add(Request $req){
-
-        $image = $req->file('image')->store('images', 'public');
+        
+        $image = null;
         $title = $req->input('title');
         $detail = $req->input('detail');
         $id = Auth::id();
+
+        if ($req->hasFile('image')) {
+            if ($req->file('image')->isValid()) {
+                $image = $req->file('image')->store('images', 'public');
+            }else{
+                return view('create');
+            }
+        }
     
         $thread = Auth::user()->thread();
         $thread->create([

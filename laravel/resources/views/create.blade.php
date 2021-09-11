@@ -16,7 +16,7 @@
                     <a href="/" style="text-decoration: none; color: black;"><button type="button" class="btn btn-secondary btn-sm">Back</button></a>
                 </div>
 
-                <form action="/thread" method="POST" enctype="multipart/form-data">
+                <form action="/thread" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="card-body">
                         <div>
@@ -28,7 +28,7 @@
                         </div>
                         <div class="my-3">
                             <span class="image-info"></span>
-                            <input type="file" class="form-control-file" id="inputFile" name="image">
+                            <input type="file" accept="image/*" class="form-control-file" id="inputFile" name="image">
                         </div>
                         <div>
                             <div>

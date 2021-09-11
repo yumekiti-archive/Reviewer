@@ -6,6 +6,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
+                
                 <div class="card-header">
                     <div style="float: left;" class="mt-1"><span>Thread list</span></div>
                     <div style="text-align: right;"><a href="/create"><button type="button" class="btn btn-primary btn-sm">New</button></a></div>

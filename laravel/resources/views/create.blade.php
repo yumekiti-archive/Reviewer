@@ -11,8 +11,9 @@
             </div>
 
             <div class="card">
+                
                 <div class="card-header">
-                    <span>Create</span>
+                    <a href="/" style="text-decoration: none; color: black;"><button type="button" class="btn btn-secondary btn-sm">Back</button></a>
                 </div>
 
                 <form action="/thread" method="POST">
@@ -50,34 +51,52 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script>
     jQuery(function($){
+
+        // It was created.のアラート非表示
         $('.alert').hide();
+
+        // タイトル文字数
         $('.title').on('input', function(){
             var cnt = $(this).val().length;
             $('.now_cnt_title').text(cnt);
-            if(cnt >= 0 && 50 >= cnt){
-                $('.post_btn').prop('disabled', false);                           
-            }else{
-                $('.post_btn').prop('disabled', true);
-            }
+            judge()
         });
+
+        // 説明文字数
         $('.detail').on('input', function(){
             var cnt = $(this).val().length;
             $('.now_cnt').text(cnt);
+            judge()
         });
+
+        // 文字数判定
+        function judge(){
+            tcnt = $('.title').val().length;
+            dcnt = $('.detail').val().length
+
+            if(tcnt > 0 && 50 >= tcnt && dcnt > 0 && 1000 >= dcnt){
+                $('.post_btn').prop('disabled', false);
+            }else{
+                $('.post_btn').prop('disabled', true);
+            }
+        }
+
+        // 強制発火
+        $('.title').trigger('input');
         $('.detail').trigger('input');
+
+        // It was created.のアラート表示
         $('.post_btn').click(function(){
             $('.alert').show();
         });
-        
-        $(function() {
-            $('input[type=file]');
-            $('.image-info').text('Image : Not Selected');
 
-            // アップロードするファイルを選択
-            $('input[type=file]').change(function() {
-                var file = $(this).prop('files')[0];
-                $('.image-info').text('Filename : ' + file.name + ' / Size : ' + getFiseSize(file.size) + ' / Type : ' + file.type);
-            });
+        // image-info初期設定
+        $('.image-info').text('Image : Not Selected');
+
+        // image-info設定時
+        $('input[type=file]').change(function() {
+            var file = $(this).prop('files')[0];
+            $('.image-info').text('Filename : ' + file.name + ' / Size : ' + getFiseSize(file.size) + ' / Type : ' + file.type);
         });
 
         /** 

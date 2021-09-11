@@ -11,12 +11,12 @@
             </div>
 
             <div class="card">
-                
+
                 <div class="card-header">
                     <a href="/" style="text-decoration: none; color: black;"><button type="button" class="btn btn-secondary btn-sm">Back</button></a>
                 </div>
 
-                <form action="/thread" method="POST">
+                <form action="/thread" method="POST" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="card-body">
                         <div>

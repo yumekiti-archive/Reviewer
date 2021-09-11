@@ -47,9 +47,7 @@ class ThreadController extends Controller
 
     public function add(Request $req){
 
-        $req->image->store('images', 'public');
-        $image = $req->file('image');
-
+        $image = $req->file('image')->store('images', 'public');
         $title = $req->input('title');
         $detail = $req->input('detail');
         $id = Auth::id();

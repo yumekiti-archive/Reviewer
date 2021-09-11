@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
 
-            <a href="{{$thread->image}}">
+            <a href="/{{$thread->image}}">
                 <img style="display: block; margin: auto;" src="{{$thread->image}}" class="img-fluid">
             </a><br>
 

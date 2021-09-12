@@ -25,35 +25,60 @@
                     <div class="text-right"><span>{{$thread->updated_at}}</span></div>
 
                     <hr>
-                    <textarea class="form-control" placeholder="Comment here"style="height: 100px"></textarea>
 
                     <div class="footer">
-                        <div style="float: left;" class="mt-4">
-                            <span>Rating : </span>
-                            <select class="form-select" aria-label="Default select">
-                                <option value="1" selected>1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
-                        </div>
-                        <div style="text-align: right;"><button type="button" class="mt-3 btn btn-primary">Comment</button></div>
+                        <form action="/thread/{{$thread->id}}" method="post">
+                        {{ csrf_field() }}
+
+                            <div>
+                                <span>Comment : </span>
+                                <span class="now_cnt">0</span> / 500
+                            </div>
+                            <textarea class="message form-control" placeholder="Message here" style="height: 100px" name="message"></textarea>
+
+                            <div style="float: left;" class="mt-4">
+                                <span>Rating : </span>
+                                <select class="form-select" aria-label="Default select" name="star">
+                                    <option value="1" selected>1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+
+                            <div style="text-align: right;">
+                                <input type="submit" class="post_btn mt-3 btn btn-primary" value="Comment" disabled>
+                            </div>
+
+                        </form>
                     </div>
 
                 </div>
 
             </div>
 
+            <!--コメント-->
             <div  class="card mt-3">
-                <!--コメントが入る-->
                 <div class="card-header">
-                    <div style="float: left;"><span>User : </span></div>
-                    <div style="text-align: right;"><span>Rating : </span></div>
+                    <span>Comments</span>
                 </div>
-                <div class="card-body">
-                    <span>test</span>
+                @foreach ($comments as $comment)
+                    <div  class="card mt-3">
+                        <div class="card-header">
+                            <div style="float: left;"><span>User : {{ $users[($comment->user_id - 1)]->name }}</span></div>
+                            <div style="text-align: right;"><span>Rating : {{$comment->star}}</span></div>
+                        </div>
+                        <div class="card-body">
+                            <span>{{$comment->message}}</span>
+                        </div>
+                    </div>
+                @endforeach
+
+                <div class="mt-3" style="margin: 0 auto;">
+                    {{$comments->links()}}
                 </div>
+
             </div>
 
         </div>
@@ -71,5 +96,17 @@
         if($('.image').attr('src') != '/'){
             $('.image').show();
         }
+
+        // コメント文字数
+        $('.message').on('input', function(){
+            var cnt = $(this).val().length;
+            $('.now_cnt').text(cnt);
+            if(cnt > 0 && 500 >= cnt){
+                $('.post_btn').prop('disabled', false);
+            }else{
+                $('.post_btn').prop('disabled', true);
+            }
+        });
+
     });
 </script>

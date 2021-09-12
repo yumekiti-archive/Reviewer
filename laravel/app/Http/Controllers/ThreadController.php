@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Thread;
 use App\User;
+use App\Thread;
+use App\Comment;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -13,8 +14,8 @@ class ThreadController extends Controller
 {
     //
 
-    public function list(){
-        $threads = Thread::all()->reverse();
+    public function index(){
+        $threads = Thread::orderBy('created_at', 'desc')->paginate(10);
         $users = User::all();
 
         $params = [
@@ -29,9 +30,14 @@ class ThreadController extends Controller
         $thread = Thread::where('id', $id)->firstOrFail();
         $user = User::where('id', $thread->user_id)->firstOrFail();
 
+        $users = User::all();
+        $comments = Comment::where('thread_id', $id)->orderBy('created_at', 'desc')->paginate(10);
+
         $params = [
-            'thread' => $thread,
             'user' => $user,
+            'thread' => $thread,
+            'users' => $users,
+            'comments' => $comments,
         ];
 
         return view('detail', $params);

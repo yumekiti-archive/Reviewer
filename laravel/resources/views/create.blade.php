@@ -37,7 +37,7 @@
                             </div>
                             <textarea style="height: 500px;" class="detail form-control" name="detail"></textarea>
                         </div>
-                        <div class="mt-3 text-right post_btn"><input type="submit" class="post_btn" value="Create" disabled></div>
+                        <div class="mt-3 text-right"><input type="submit" class="post_btn btn btn-primary" value="Create" disabled></div>
                     </div>
                 </form>
 

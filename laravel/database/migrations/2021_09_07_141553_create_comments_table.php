@@ -15,12 +15,15 @@ class CreateCommentsTable extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->text('message');
-            $table->integer('star')->default(0);
+            $table->text('message', 500);
+            $table->integer('star')->default(1);
             $table->timestamps();
             //user_外部キー制約
             $table->unsignedBigInteger('user_id')->index();
             $table->foreign('user_id')->references('id')->on('users');
+            //thread_外部キー制約
+            $table->unsignedBigInteger('thread_id')->index();
+            $table->foreign('thread_id')->references('id')->on('threads');
         });
     }
 

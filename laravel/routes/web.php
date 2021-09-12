@@ -19,9 +19,10 @@ Route::get('/', function () {
     return redirect('/thread');
 });
 
-Route::get('/thread', 'ThreadController@list');
+Route::get('/thread', 'ThreadController@index');
 Route::post('/thread', 'ThreadController@add');
 Route::get('/thread/{id}', 'ThreadController@detail');
+Route::post('/thread/{id}', 'CommentController@add');
 
 Route::get('/create', 'ThreadController@create');
 

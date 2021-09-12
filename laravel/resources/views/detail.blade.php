@@ -21,7 +21,7 @@
                         <img style="display: block; margin: auto; height: 300px;" src="/{{$thread->image}}" class="image img-fluid">
                     </a><br>
 
-                    <p class="m-3">{{$thread->detail}}</p>
+                    <p class="m-3">{!! nl2br(e($thread->detail)) !!}</p>
                     <div class="text-right"><span>{{$thread->updated_at}}</span></div>
 
                     <hr>
@@ -70,7 +70,7 @@
                             <div style="text-align: right;"><span>Rating : {{$comment->star}}</span></div>
                         </div>
                         <div class="card-body">
-                            <span>{{$comment->message}}</span>
+                            <span>{!! nl2br(e($comment->message)) !!}</span>
                         </div>
                     </div>
                 @endforeach

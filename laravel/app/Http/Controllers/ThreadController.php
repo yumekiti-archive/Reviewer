@@ -19,10 +19,12 @@ class ThreadController extends Controller
     public function index(){
         $threads = Thread::orderBy('created_at', 'desc')->paginate(10);
         $users = User::all();
+        $tags = Tag::orderBy('count', 'desc')->paginate(16);
 
         $params = [
             'threads' => $threads,
             'users' => $users,
+            'tags' => $tags,
         ];
 
         return view('thread', $params);
@@ -101,6 +103,7 @@ class ThreadController extends Controller
     public function search(Request $req){
         $keyword = $req->input('keyword');
         $sort = $req->input('sort');
+        $tags = Tag::orderBy('count', 'desc')->paginate(16);
         
         $threads = null;
         switch ($sort) {
@@ -129,6 +132,7 @@ class ThreadController extends Controller
         $params = [
             'threads' => $threads,
             'users' => $users,
+            'tags' => $tags,
         ];
 
         return view('thread', $params);

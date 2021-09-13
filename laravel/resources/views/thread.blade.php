@@ -4,7 +4,7 @@
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-12">
+    <div class="col-md-9 mb-3">
             <div class="card">
                 
                 <div class="card-header">
@@ -62,6 +62,33 @@
                 
             </div>
         </div>
+
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">
+                    <span>Tag ranking</span>
+                </div>
+                <div class="card-body">
+                    @foreach ($tags as $tag)
+                        <div class="card mb-3">
+                            <form action="/search" method="post" class="search-tag" style="margin: auto 0;">
+                            {{ csrf_field() }}
+                                <input type="hidden" name="sort" value="1">
+                                <input type="hidden" name="keyword" value="#{{$tag->name}}">
+                                <div class="card-body search-card">
+                                    <h5>#{{$tag->name}}</h5>
+                                    <span>count : {{$tag->count}}</span>
+                                </div>
+                            </form>
+                        </div>
+                    @endforeach
+                </div>
+                <div style="margin: 0 auto;">
+                    {{$tags->links()}}
+                </div>
+            </div>
+        </div>
+        
     </div>
 </div>
 
@@ -71,14 +98,20 @@
 <script>
     jQuery(function($){
         $('.search').hide();
+        
         $('.search-btn').click(function() {
             $('.search').show();
             $('.default').hide();
-        })
+        });
+
         $('.back').click(function() {
             $('.search').hide();
             $('.default').show();
-        })
+        });
+
+        $('.search-card').click(function() {
+            $('.search-tag').submit();
+        });
     });
 </script>
 

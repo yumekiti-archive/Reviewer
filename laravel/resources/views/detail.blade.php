@@ -63,17 +63,19 @@
                 <div class="card-header">
                     <span>Comments</span>
                 </div>
-                @foreach ($comments as $comment)
-                    <div  class="card mt-3">
-                        <div class="card-header">
-                            <div style="float: left;"><span>User : {{ $users[($comment->user_id - 1)]->name }}</span></div>
-                            <div style="text-align: right;"><span>Rating : {{$comment->star}}</span></div>
+                <div class="card-body">
+                    @foreach ($comments as $comment)
+                        <div  class="card mt-3">
+                            <div class="card-header">
+                                <div style="float: left;"><span>User : {{ $users[($comment->user_id - 1)]->name }}</span></div>
+                                <div style="text-align: right;">Rating : <span class="rating">{{$comment->star}}</span></div>
+                            </div>
+                            <div class="card-body">
+                                <span>{!! nl2br(e($comment->message)) !!}</span>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <span>{!! nl2br(e($comment->message)) !!}</span>
-                        </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                </div>
 
                 <div class="mt-3" style="margin: 0 auto;">
                     {{$comments->links()}}
@@ -106,6 +108,32 @@
             }else{
                 $('.post_btn').prop('disabled', true);
             }
+        });
+
+        $('.rating').each(function() {
+            var cnt = parseInt($(this).text());
+
+            switch(cnt){
+                case 1:
+                    $(this).text('☆')
+                    break;
+                case 2:
+                    $(this).text('☆☆')
+                    break;
+                case 3:
+                    $(this).text('☆☆☆')
+                    break;
+                case 4:
+                    $(this).text('☆☆☆☆')
+                    break;
+                case 5:
+                    $(this).text('☆☆☆☆☆')
+                    break;
+                default:
+                    $(this).text('do not look')
+                    break;
+            }
+            
         });
 
     });

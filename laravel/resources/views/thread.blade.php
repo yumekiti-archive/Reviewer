@@ -8,8 +8,35 @@
             <div class="card">
                 
                 <div class="card-header">
-                    <div style="float: left;" class="mt-1"><span>Thread list</span></div>
-                    <div style="text-align: right;"><a href="/create"><button type="button" class="btn btn-primary btn-sm">New</button></a></div>
+
+                    <div class="default">
+                        <div style="float: left;" class="mt-1"><span>Thread list</span></div>
+                        <div style="text-align: right;">
+                            <button type="button" class="search-btn btn btn-secondary btn-sm">Search</button>
+                            <a href="/create"><button type="button" class="btn btn-primary btn-sm">New</button></a>
+                        </div>
+                    </div>
+
+                    <div class="search">
+                        <div style="float: left;"><button type="button" class="back btn btn-secondary btn-sm">Back</button></div>
+                        <div style="text-align: right;">
+                            <form action="/search" method="post" style="margin: auto 0;">
+                                {{ csrf_field() }}
+
+                                <input class="col-5" type="text" name="keyword">
+                                
+                                <input type="submit" class="search-btn btn btn-primary btn-sm" value="Search">
+
+                                <select class="btn-outline-primary" name="sort">
+                                    <option value="1">New</option>
+                                    <option value="2">Popular</option>
+                                    <option value="3">Rating</option>
+                                </select>
+
+                            </form>
+                        </div>
+                    </div>
+
                 </div>
 
                 <div class="card-body">
@@ -39,3 +66,31 @@
 </div>
 
 @endsection
+
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script>
+    jQuery(function($){
+        $('.search').hide();
+        $('.search-btn').click(function() {
+            $('.search').show();
+            $('.default').hide();
+        })
+        $('.back').click(function() {
+            $('.search').hide();
+            $('.default').show();
+        })
+    });
+</script>
+
+<style>
+select {
+    text-align:-webkit-center;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: 0;
+    outline: none;
+    background: transparent;
+    color: #6699CC;
+}
+</style>

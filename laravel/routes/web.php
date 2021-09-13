@@ -24,6 +24,8 @@ Route::post('/thread', 'ThreadController@add');
 Route::get('/thread/{id}', 'ThreadController@detail');
 Route::post('/thread/{id}', 'CommentController@add');
 
+Route::post('/search', 'ThreadController@search');
+
 Route::get('/create', 'ThreadController@create');
 
 Auth::routes();

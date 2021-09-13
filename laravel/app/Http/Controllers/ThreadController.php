@@ -52,7 +52,6 @@ class ThreadController extends Controller
     }
 
     public function add(Request $req){
-        
         $image = null;
         $title = $req->input('title');
         $detail = $req->input('detail');
@@ -75,7 +74,42 @@ class ThreadController extends Controller
         ]);
 
         return redirect('/thread');
+    }
 
+    public function search(Request $req){
+        $keyword = $req->input('keyword');
+        $sort = $req->input('sort');
+        
+        $threads = null;
+        switch ($sort) {
+            case 1:
+                $threads = Thread::orderBy('created_at', 'desc');
+                break;
+            case 2:
+                $threads = Thread::orderBy('created_at', 'desc');
+                break;
+            case 3:
+                $threads = Thread::orderBy('created_at', 'desc');
+                break;
+            default:
+               echo "Not chosen";
+               break;
+        }
+
+        if($keyword){
+            $threads = $threads->where('title', 'like', '%' . $keyword . '%');
+            $threads = $threads->orWhere('detail', 'like', '%' . $keyword . '%');
+        }
+        
+        $threads = $threads->paginate(10);
+        $users = User::all();
+
+        $params = [
+            'threads' => $threads,
+            'users' => $users,
+        ];
+
+        return view('thread', $params);
     }
 
 }

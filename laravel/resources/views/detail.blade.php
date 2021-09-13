@@ -9,7 +9,7 @@
             <div class="card">
 
                 <div class="card-header">
-                    <a href="/" style="text-decoration: none; color: black;"><div style="float: left;"><button type="button" class="btn btn-secondary btn-sm">Back</button></div></a>
+                    <a href="/"><div style="float: left;"><button type="button" class="btn btn-secondary btn-sm">Back</button></div></a>
                     <div style="text-align: right;" class="mt-1"><span>User : {{$user->name}}</span></div>
                 </div>
 

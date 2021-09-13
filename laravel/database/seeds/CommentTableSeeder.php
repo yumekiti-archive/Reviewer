@@ -17,7 +17,7 @@ class CommentTableSeeder extends Seeder
         foreach ($messages as $index => $message) {
             DB::table('comments')->insert([
                 'message' => $message,
-                'star' => 3,
+                'star' => 300,
                 'created_at' => new DateTime(),
                 'updated_at' => new DateTime(),
                 'user_id' => 1,

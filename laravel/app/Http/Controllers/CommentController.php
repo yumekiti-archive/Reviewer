@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
 
+use App\Thread;
+use App\Comment;
+
 class CommentController extends Controller
 {
     //
@@ -22,6 +25,10 @@ class CommentController extends Controller
                 'star' => $star,
                 'user_id' => $user_id,
                 'thread_id' => $id,
+            ]);
+
+            Thread::where('id', $id)->update([
+                'star' => Comment::where('thread_id', $id)->avg('star')
             ]);
 
             return redirect('/thread/' . (string)$id);

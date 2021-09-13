@@ -8,6 +8,7 @@ use App\User;
 use App\Thread;
 use App\Comment;
 use App\Tag;
+use App\ThreadTagChain;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -29,7 +30,7 @@ class ThreadController extends Controller
 
     public function detail($id){
         $thread = Thread::where('id', $id)->firstOrFail();
-        $user = User::where('id', $thread->user_id)->firstOrFail();
+        $user = Auth::user();
         $thread->increment('views');
 
         $users = User::all();
@@ -81,7 +82,7 @@ class ThreadController extends Controller
             if ($check === null) {
                 $tags = Auth::user()->tags();
                 $new_tag = $tags->create([
-                    'name' => $tag,
+                    'name' => $tag,            
                 ]);
                 $new_tag->chain()->attach([
                     'thread_id' => $new_thread->id,
@@ -110,7 +111,7 @@ class ThreadController extends Controller
                 $threads = Thread::orderBy('views', 'desc');
                 break;
             case 3:
-                $threads = Thread::orderBy('created_at', 'desc');
+                $threads = Thread::orderBy('star', 'desc');
                 break;
             default:
                echo "Not chosen";
@@ -131,6 +132,20 @@ class ThreadController extends Controller
         ];
 
         return view('thread', $params);
+    }
+
+    public function delete($id){
+        if(Auth::check()){
+            $thread = Thread::where('id', $id)->first();
+            if(Auth::id() === $thread->user_id){
+                ThreadTagChain::where('thread_id', $id)->delete();
+                Comment::where('thread_id', $id)->delete();
+                $thread->delete();
+            }
+            return redirect('/thread');
+        }else{
+            return redirect('/login');
+        }
     }
 
 }

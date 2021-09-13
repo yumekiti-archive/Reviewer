@@ -23,6 +23,7 @@ Route::get('/thread', 'ThreadController@index');
 Route::post('/thread', 'ThreadController@add');
 Route::get('/thread/{id}', 'ThreadController@detail');
 Route::post('/thread/{id}', 'CommentController@add');
+Route::get('/thread/delete/{id}', 'ThreadController@delete');
 
 Route::post('/search', 'ThreadController@search');
 

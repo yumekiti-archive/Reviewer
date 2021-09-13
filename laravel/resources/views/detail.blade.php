@@ -10,7 +10,10 @@
 
                 <div class="card-header">
                     <a href="/"><div style="float: left;"><button type="button" class="btn btn-secondary btn-sm">Back</button></div></a>
-                    <div style="text-align: right;" class="mt-1"><span>User : {{$user->name}}</span></div>
+                    <div style="text-align: right;" class="mt-1">
+                        <span>User : {{$users[($thread->user_id - 1)]->name}}</span>
+                        <a href="/thread/delete/{{$thread->id}}"><button type="button" class="delete-btn ml-2 btn btn-danger btn-sm">Delete</button></a>
+                    </div>
                 </div>
 
                 <div class="card-body">
@@ -39,11 +42,11 @@
                             <div style="float: left;" class="mt-4">
                                 <span>Rating : </span>
                                 <select class="form-select" aria-label="Default select" name="star">
-                                    <option value="1" selected>1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
+                                    <option value="100" selected>1</option>
+                                    <option value="200">2</option>
+                                    <option value="300">3</option>
+                                    <option value="400">4</option>
+                                    <option value="500">5</option>
                                 </select>
                             </div>
 
@@ -118,19 +121,19 @@
             var cnt = parseInt($(this).text());
 
             switch(cnt){
-                case 1:
+                case 100:
                     $(this).text('☆')
                     break;
-                case 2:
+                case 200:
                     $(this).text('☆☆')
                     break;
-                case 3:
+                case 300:
                     $(this).text('☆☆☆')
                     break;
-                case 4:
+                case 400:
                     $(this).text('☆☆☆☆')
                     break;
-                case 5:
+                case 500:
                     $(this).text('☆☆☆☆☆')
                     break;
                 default:
@@ -139,6 +142,11 @@
             }
             
         });
+
+        $('.delete-btn').hide();
+        if({{$user->id}} == {{$thread->user_id}}){
+            $('.delete-btn').show();
+        }
 
     });
 </script>

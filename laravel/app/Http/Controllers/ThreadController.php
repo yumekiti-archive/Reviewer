@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Thread;
 use App\Comment;
+use App\Tag;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -29,6 +30,7 @@ class ThreadController extends Controller
     public function detail($id){
         $thread = Thread::where('id', $id)->firstOrFail();
         $user = User::where('id', $thread->user_id)->firstOrFail();
+        $thread->increment('views');
 
         $users = User::all();
         $comments = Comment::where('thread_id', $id)->orderBy('created_at', 'desc')->paginate(10);
@@ -56,6 +58,7 @@ class ThreadController extends Controller
         $title = $req->input('title');
         $detail = $req->input('detail');
         $id = Auth::id();
+        $tags = preg_match_all('/#([a-zA-Z0-9０-９ぁ-んァ-ヶー一-龠]+)/u', $detail, $match);
 
         if ($req->hasFile('image')) {
             if ($req->file('image')->isValid()) {
@@ -66,12 +69,30 @@ class ThreadController extends Controller
         }
     
         $thread = Auth::user()->thread();
-        $thread->create([
+        $new_thread = $thread->create([
             'title' => $title,
             'detail' => $detail,
             'image' => $image,
             'user_id' => $id,
         ]);
+
+        foreach ($match[1] as $tag) {
+            $check = Tag::where('name', '=', $tag)->first();
+            if ($check === null) {
+                $tags = Auth::user()->tags();
+                $new_tag = $tags->create([
+                    'name' => $tag,
+                ]);
+                $new_tag->chain()->attach([
+                    'thread_id' => $new_thread->id,
+                ]);
+            }else{
+                $check->increment('count');
+                $check->chain()->attach([
+                    'thread_id' => $new_thread->id,
+                ]);
+            }
+        }
 
         return redirect('/thread');
     }
@@ -86,7 +107,7 @@ class ThreadController extends Controller
                 $threads = Thread::orderBy('created_at', 'desc');
                 break;
             case 2:
-                $threads = Thread::orderBy('created_at', 'desc');
+                $threads = Thread::orderBy('views', 'desc');
                 break;
             case 3:
                 $threads = Thread::orderBy('created_at', 'desc');

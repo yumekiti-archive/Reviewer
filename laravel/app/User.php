@@ -56,4 +56,12 @@ class User extends Authenticatable
         return $this->belongsTo(Thread::class);
     }
 
+    /**
+     *  Userの所有するTagを取得
+     */
+    public function tags()
+    {
+        return $this->belongsTo(Tag::class);
+    }
+
 }

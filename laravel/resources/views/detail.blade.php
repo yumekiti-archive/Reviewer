@@ -59,13 +59,13 @@
             </div>
 
             <!--コメント-->
-            <div  class="card mt-3">
+            <div  class="comment-card card mt-3">
                 <div class="card-header">
                     <span>Comments</span>
                 </div>
                 <div class="card-body">
                     @foreach ($comments as $comment)
-                        <div  class="card mt-3">
+                        <div  class="comment-card-body card mt-3">
                             <div class="card-header">
                                 <div style="float: left;"><span>User : {{ $users[($comment->user_id - 1)]->name }}</span></div>
                                 <div style="text-align: right;">Rating : <span class="rating">{{$comment->star}}</span></div>
@@ -97,6 +97,10 @@
 
         if($('.image').attr('src') != '/'){
             $('.image').show();
+        }
+
+        if($('.comment-card-body').length == 0){
+            $('.comment-card').hide();
         }
 
         // コメント文字数

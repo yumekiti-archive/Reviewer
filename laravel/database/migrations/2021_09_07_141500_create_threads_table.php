@@ -18,6 +18,7 @@ class CreateThreadsTable extends Migration
             $table->string('title', 50);
             $table->string('detail', 1000);
             $table->string('image')->nullable()->default(null);
+            $table->integer('views')->default(0);
             $table->timestamps();
             //user_外部キー制約
             $table->unsignedBigInteger('user_id')->index();

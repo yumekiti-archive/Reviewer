@@ -144,7 +144,7 @@
         });
 
         $('.delete-btn').hide();
-        if({{$user->id}} == {{$thread->user_id}}){
+        if({{$user->id??0}} == {{$thread->user_id}}){
             $('.delete-btn').show();
         }
 

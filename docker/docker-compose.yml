@@ -42,3 +42,18 @@ services:
             - ../laravel:/mnt/laravel
         working_dir: /mnt/laravel
         tty: true
+
+    # laravel echo
+    redis:
+        image: redis:5
+        container_name: deckReview-redis
+        ports:
+          - 6379:6379
+
+    laravel-echo-server:
+        container_name: deckReview-laravel-echo
+        build: ./laravel-echo
+        ports:
+          - 6001:6001
+        volumes:
+          - ./laravel-echo/:/work:cached

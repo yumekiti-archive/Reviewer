@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Thread;
 use App\Comment;
+use App\Events\PublicEvent;
 
 class CommentController extends Controller
 {
@@ -20,7 +21,7 @@ class CommentController extends Controller
             $star = $req->input('star');
 
             $comment = Auth::user()->comment();
-            $comment->create([
+            $data = $comment->create([
                 'message' => $message,
                 'star' => $star,
                 'user_id' => $user_id,
@@ -30,6 +31,8 @@ class CommentController extends Controller
             Thread::where('id', $id)->update([
                 'star' => Comment::where('thread_id', $id)->avg('star')
             ]);
+
+            event(new PublicEvent($data));
 
             return redirect('/thread/' . (string)$id);
         }else{

@@ -12,7 +12,6 @@
 */
 
 Route::get('/welcome', function () {
-    broadcast(new \App\Events\PublicEvent);
     return view('welcome');
 });
 
@@ -33,3 +32,8 @@ Route::get('/create', 'ThreadController@create');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/public-event', function(){
+    broadcast(new \App\Events\PublicEvent);
+    return 'public';
+});

@@ -53,5 +53,5 @@ window.Echo = new Echo({
 //購読するチャネルの設定
 window.Echo.channel('public-event')
     .listen('PublicEvent', (e) => {
-        console.log(e);
+        console.log(e.message);
     });

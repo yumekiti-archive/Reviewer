@@ -12,6 +12,7 @@
                     <a href="/"><div style="float: left;"><button type="button" class="btn btn-secondary btn-sm">Back</button></div></a>
                     <div style="text-align: right;" class="mt-1">
                         <span>User : {{$users[($thread->user_id - 1)]->name}}</span>
+                        <button type="button" class="delete-btn ml-2 btn btn-secondary btn-sm">Edit</button>
                         <a href="/thread/delete/{{$thread->id}}"><button type="button" class="delete-btn ml-2 btn btn-danger btn-sm">Delete</button></a>
                     </div>
                 </div>

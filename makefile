@@ -42,6 +42,10 @@ db:
 php:
 	$(dc) exec php /bin/sh
 
+.PHONY: redis
+redis:
+	$(dc) exec redis /bin/sh
+
 .PHONY: nginx
 nginx:
 	$(dc) exec nginx /bin/sh
@@ -61,6 +65,10 @@ fresh-seed:
 .PHONY: npm
 npm:
 	$(dc) exec node /bin/sh -c "npm install && npm run dev"
+
+.PHONY: npm-watch
+npm-watch:
+	$(dc) exec node /bin/sh -c "npm install && npm run watch"
 
 .PHONY: file-rm
 file-rm:

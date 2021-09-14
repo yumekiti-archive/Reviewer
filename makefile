@@ -57,3 +57,12 @@ fresh:
 .PHONY: fresh-seed
 fresh-seed:
 	$(dc) -f ./docker/docker-compose.yml exec php php artisan migrate:fresh --seed
+
+.PHONY: npm
+npm:
+	$(dc) exec node /bin/sh -c "npm install && npm run dev"
+
+.PHONY: file-rm
+file-rm:
+	rm -f ./docker/laravel-echo/laravel-echo-server.lock
+	rm -fr ./laravel/node_modules/

@@ -12,6 +12,7 @@
 */
 
 Route::get('/welcome', function () {
+    broadcast(new \App\Events\PublicEvent);
     return view('welcome');
 });
 

@@ -41,17 +41,13 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 // });
 
 // laravel-echo
-import Echo from 'laravel-echo';
-window.io = require('socket.io-client');
-
-//接続情報
+import Echo from "laravel-echo";
+window.io = require("socket.io-client");
 window.Echo = new Echo({
-    broadcaster: 'socket.io',
-    host: window.location.host,
+    broadcaster: "socket.io",
+    host: window.location.hostname + ":6001",
 });
 
-//購読するチャネルの設定
-window.Echo.channel('public-event')
-    .listen('PublicEvent', (e) => {
-        console.log(e.message);
-    });
+window.Echo.channel("test").listen("MessageReceived", e => {
+    console.log("メッセージ受け取り成功！！！");
+});

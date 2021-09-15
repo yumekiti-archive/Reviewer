@@ -37,3 +37,8 @@ Route::get('/public-event', function(){
     broadcast(new \App\Events\PublicEvent);
     return 'public';
 });
+
+Route::get('/test', function () {
+    event(new \App\Events\MessageReceived());
+    return view('test');
+});
